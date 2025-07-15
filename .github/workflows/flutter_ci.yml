@@ -17,7 +17,7 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.x' # يمكنك تغيير هذا الإصدار ليناسب مشروعك
+          flutter-version: '3.22.x' # إصدار Flutter الذي يتضمن Dart SDK 3.4.3 أو أحدث
           channel: 'stable'
 
       - name: Install dependencies
