@@ -86,27 +86,22 @@ class _ExcelViewerHomeState extends State<ExcelViewerHome> {
   }
 
   Future<void> _pickFile() async {
-    // Request storage permission
-    var status = await Permission.storage.status;
-    if (!status.isGranted) {
-      status = await Permission.storage.request();
-      if (!status.isGranted) {
-        _showSnackBar('تحتاج إلى إذن الوصول للملفات');
-        return;
-      }
-    }
+    if (await Permission.manageExternalStorage.request().isGranted) {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ["xlsx", "xls"],
+      );
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['xlsx', 'xls'],
-    );
-
-    if (result != null) {
-      final file = result.files.first;
-      if (file.path != null) {
-        await _loadExcelFile(file.path!);
-        await _saveLastFile(file.path!);
+      if (result != null) {
+        final file = result.files.first;
+        if (file.path != null) {
+          await _loadExcelFile(file.path!);
+          await _saveLastFile(file.path!);
+        }
       }
+    } else {
+      openAppSettings(); // فتح الإعدادات يدوياً إذا المستخدم رفض الإذن
+      _showSnackBar("يرجى تفعيل إذن الوصول من الإعدادات");
     }
   }
 
