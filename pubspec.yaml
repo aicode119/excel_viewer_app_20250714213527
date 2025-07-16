@@ -42,7 +42,7 @@ dependencies:
   excel: ^4.0.6
 
   # open_file_plus (تم التعديل هنا فقط للإصدار الصحيح المتاح)
-  open_file_plus: ^3.2.1
+  open_file_plus: ^3.1.0
 
   # Path provider for file paths
   path_provider: ^2.1.3
